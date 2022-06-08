@@ -1,7 +1,7 @@
 # Summary
 
 - [Introduction](./1_intro.md)
-- [Concentions](./2_conventions.md)
+- [Conventions](./2_conventions.md)
 - [Examples](./3_examples.md)
     - [Fill influxdb2 with live data](./3_1_influxdb2.md)
 - [Key code segments](./4_kcs.md)
