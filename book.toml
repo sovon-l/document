@@ -5,5 +5,10 @@ multilingual = false
 src = "src"
 title = "proper document"
 
+[build]
+build-dir = "docs"
+
 [output.html]
 mathjax-support = true
+default-theme = "navy"
+git-repository-url = "https://github.com/proper-fin/document"
