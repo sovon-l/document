@@ -3,7 +3,7 @@ authors = ["orb li"]
 language = "en"
 multilingual = false
 src = "src"
-title = "proper document"
+title = "sovon limited - eep capital"
 
 [build]
 build-dir = "docs"
@@ -11,4 +11,4 @@ build-dir = "docs"
 [output.html]
 mathjax-support = true
 default-theme = "navy"
-git-repository-url = "https://github.com/proper-fin/document"
+git-repository-url = "https://github.com/sovon-l/document"
