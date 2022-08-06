@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title></title>
-        <base href="/">
+        <title>gateway - sovon limited - eep capital</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
@@ -78,7 +77,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="1_intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="2_conventions.html"><strong aria-hidden="true">2.</strong> Conventions</a></li><li class="chapter-item expanded "><a href="3_examples.html"><strong aria-hidden="true">3.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3_1_influxdb2.html"><strong aria-hidden="true">3.1.</strong> Fill influxdb2 with live data</a></li></ol></li><li class="chapter-item expanded "><a href="4_kcs.html"><strong aria-hidden="true">4.</strong> Key code segments</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="4_1_market.html"><strong aria-hidden="true">4.1.</strong> market</a></li><li class="chapter-item expanded "><a href="4_2_market_storer.html"><strong aria-hidden="true">4.2.</strong> market_storer</a></li></ol></li><li class="chapter-item expanded "><a href="5_design.html"><strong aria-hidden="true">5.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="5_1_market.html"><strong aria-hidden="true">5.1.</strong> market</a></li><li class="chapter-item expanded "><a href="5_2_gateway.html"><strong aria-hidden="true">5.2.</strong> gateway</a></li></ol></li><li class="chapter-item expanded "><a href="98_fun.html"><strong aria-hidden="true">6.</strong> Fun</a></li><li class="chapter-item expanded "><a href="99_references.html"><strong aria-hidden="true">7.</strong> References</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="1_intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="2_conventions.html"><strong aria-hidden="true">2.</strong> Conventions</a></li><li class="chapter-item expanded "><a href="3_examples.html"><strong aria-hidden="true">3.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3_1_influxdb2.html"><strong aria-hidden="true">3.1.</strong> Fill influxdb2 with live data</a></li></ol></li><li class="chapter-item expanded "><a href="4_kcs.html"><strong aria-hidden="true">4.</strong> Key code segments</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="4_1_market.html"><strong aria-hidden="true">4.1.</strong> market</a></li><li class="chapter-item expanded "><a href="4_2_market_storer.html"><strong aria-hidden="true">4.2.</strong> market_storer</a></li></ol></li><li class="chapter-item expanded "><a href="5_design.html"><strong aria-hidden="true">5.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="5_1_market.html"><strong aria-hidden="true">5.1.</strong> market</a></li><li class="chapter-item expanded "><a href="5_2_gateway.html" class="active"><strong aria-hidden="true">5.2.</strong> gateway</a></li></ol></li><li class="chapter-item expanded "><a href="98_fun.html"><strong aria-hidden="true">6.</strong> Fun</a></li><li class="chapter-item expanded "><a href="99_references.html"><strong aria-hidden="true">7.</strong> References</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -140,19 +139,50 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="document-not-found-404"><a class="header" href="#document-not-found-404">Document not found (404)</a></h1>
-<p>This URL is invalid, sorry. Please use the navigation bar or search to continue.</p>
+                        <h1 id="gateway"><a class="header" href="#gateway">gateway</a></h1>
+<p>Gateway also aim to be a portable mini product <a href="##" title="copilot says">that can be either pluged into another product as an attached service, or run separately as a microservice.</a> However, contrastly gateway is more complicated as it needs to store and manage states of the orders at the exchange venues, and translate them into a unified format for other products to use.</p>
+<h2 id="internal-communication-design"><a class="header" href="#internal-communication-design">Internal communication design</a></h2>
+<p>We will need an internal communicator to allow different parts of gateway communicate the states of orders. Currently implementing a in-memory design with interfaces (traits) that has connection pool design in mind.</p>
+<h2 id="decomposition"><a class="header" href="#decomposition">Decomposition</a></h2>
+<h3 id="internal"><a class="header" href="#internal">Internal</a></h3>
+<p><a href="##" title="copilot says">Internally Gateway should be decomposed into 4 parts:</a></p>
+<h4 id="order-executor"><a class="header" href="#order-executor">Order Executor</a></h4>
+<p><a href="##" title="copilot says">Order executor is the part that actually send orders to the exchange venue. It should be able to handle multiple orders at the same time, and should be able to handle multiple exchange venues at the same time. It should also be able to handle multiple accounts at the same time.</a> It's job is place <a href="##" title="copilot says">orders and cancel orders.</a> We need to note that hot path <a href="##" title="copilot says">of this part is very important, and should be optimized as much as possible.</a></p>
+<h4 id="state-listener"><a class="header" href="#state-listener">State Listener</a></h4>
+<p><a href="##" title="copilot says">State listener is the part that listen to the state of the orders at the exchange venue. It's job is to listen to the state of the orders and update the state of the orders.</a> For accounting purpose, we will also need to store <a href="##" title="copilot says">the state of the orders</a> into e.g. a SQL database.</p>
+<h4 id="order-manager"><a class="header" href="#order-manager">Order Manager</a></h4>
+<p>Order manager is a part the fires scheduled events on inactive open orders, to keep order last update <a href="##" title="copilot says">time fresh and prevent</a> situations like message lost <a href="##" title="copilot says">or exchange venue server crash.</a></p>
+<h4 id="order-actioner"><a class="header" href="#order-actioner">Order Actioner</a></h4>
+<p>This part is responsible for <a href="##" title="copilot says">taking actions</a> that does not have a hot path requirement. For example, requesting latest order info. This can either be triggered by order manager<a href="##" title="copilot says">, or by other products.</a></p>
+<h3 id="external"><a class="header" href="#external">External</a></h3>
+<p><a href="##" title="copilot says">Externally Gateway should be decomposed into 2 parts:</a></p>
+<h4 id="input"><a class="header" href="#input">Input</a></h4>
+<p>Input is separated into hot path and non hot path. Hot path means those order placing and cancelling, and should be as <a href="##" title="copilot says">fast as possible. Non hot path means those order info requesting, and should be as reliable as possible.</a></p>
+<h4 id="output"><a class="header" href="#output"><a href="##" title="copilot says">Output</a></a></h4>
+<p><a href="##" title="copilot says">Output is</a> also <a href="##" title="copilot says">separated into hot path and non hot path. Hot path means</a> the status of the order and should be as <a href="##" title="copilot says">fast as possible. Non hot path means the</a> transaction info <a href="##" title="copilot says">and should be as reliable as possible.</a></p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="5_1_market.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="98_fun.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
                         <div style="clear: both"></div>
                     </nav>
                 </div>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="5_1_market.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="98_fun.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
             </nav>
 
         </div>

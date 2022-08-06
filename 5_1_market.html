@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title></title>
-        <base href="/">
+        <title>market - sovon limited - eep capital</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
@@ -78,7 +77,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="1_intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="2_conventions.html"><strong aria-hidden="true">2.</strong> Conventions</a></li><li class="chapter-item expanded "><a href="3_examples.html"><strong aria-hidden="true">3.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3_1_influxdb2.html"><strong aria-hidden="true">3.1.</strong> Fill influxdb2 with live data</a></li></ol></li><li class="chapter-item expanded "><a href="4_kcs.html"><strong aria-hidden="true">4.</strong> Key code segments</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="4_1_market.html"><strong aria-hidden="true">4.1.</strong> market</a></li><li class="chapter-item expanded "><a href="4_2_market_storer.html"><strong aria-hidden="true">4.2.</strong> market_storer</a></li></ol></li><li class="chapter-item expanded "><a href="5_design.html"><strong aria-hidden="true">5.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="5_1_market.html"><strong aria-hidden="true">5.1.</strong> market</a></li><li class="chapter-item expanded "><a href="5_2_gateway.html"><strong aria-hidden="true">5.2.</strong> gateway</a></li></ol></li><li class="chapter-item expanded "><a href="98_fun.html"><strong aria-hidden="true">6.</strong> Fun</a></li><li class="chapter-item expanded "><a href="99_references.html"><strong aria-hidden="true">7.</strong> References</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="1_intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="2_conventions.html"><strong aria-hidden="true">2.</strong> Conventions</a></li><li class="chapter-item expanded "><a href="3_examples.html"><strong aria-hidden="true">3.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3_1_influxdb2.html"><strong aria-hidden="true">3.1.</strong> Fill influxdb2 with live data</a></li></ol></li><li class="chapter-item expanded "><a href="4_kcs.html"><strong aria-hidden="true">4.</strong> Key code segments</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="4_1_market.html"><strong aria-hidden="true">4.1.</strong> market</a></li><li class="chapter-item expanded "><a href="4_2_market_storer.html"><strong aria-hidden="true">4.2.</strong> market_storer</a></li></ol></li><li class="chapter-item expanded "><a href="5_design.html"><strong aria-hidden="true">5.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="5_1_market.html" class="active"><strong aria-hidden="true">5.1.</strong> market</a></li><li class="chapter-item expanded "><a href="5_2_gateway.html"><strong aria-hidden="true">5.2.</strong> gateway</a></li></ol></li><li class="chapter-item expanded "><a href="98_fun.html"><strong aria-hidden="true">6.</strong> Fun</a></li><li class="chapter-item expanded "><a href="99_references.html"><strong aria-hidden="true">7.</strong> References</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -140,19 +139,36 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="document-not-found-404"><a class="header" href="#document-not-found-404">Document not found (404)</a></h1>
-<p>This URL is invalid, sorry. Please use the navigation bar or search to continue.</p>
+                        <h1 id="market"><a class="header" href="#market">Market</a></h1>
+<p>Market is aimed to be a portable mini product that can be either pluged into another product as an attached service, or run separately as a microservice.</p>
+<p>From general design philosophy, this product <a href="##" title="copilot says">is designed to be as simple as possible. It is not a full blown market data service, but a simple data source that can be used to build other products.</a></p>
+<h2 id="as-an-attached-service"><a class="header" href="#as-an-attached-service">As an attached service</a></h2>
+<p><code>market::data::controller::work(..)</code> is the main controller of this service. It will handle a state separately, allow you to refresh connections in the state each time calling it, and return the data to sender. Sender <a href="##" title="copilot says">is currently a crossbeam channel, but it is subject to change to a more general trait.</a></p>
+<h2 id="as-a-separate-microservice"><a class="header" href="#as-a-separate-microservice">As a separate microservice</a></h2>
+<p>Currently an example <code>cargo run --example async_publisher</code> is provided. It digests json request with instrumenbt list from <code>localhost:7800</code> and pass into work function. <a href="##" title="copilot says">It is a simple example of how to use market as a microservice.</a></p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="5_design.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="5_2_gateway.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
                         <div style="clear: both"></div>
                     </nav>
                 </div>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="5_design.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="5_2_gateway.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
             </nav>
 
         </div>
