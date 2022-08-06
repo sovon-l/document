@@ -1,0 +1,1 @@
+This section store intra and inter product design. This page should in future also involve explaination of how to classify a product.
